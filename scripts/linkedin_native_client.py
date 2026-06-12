@@ -35,7 +35,7 @@ from dotenv import load_dotenv
 SCRIPT_PATH = Path(__file__).resolve()
 BLOG_ROOT = SCRIPT_PATH.parents[1]
 PROJECT_ROOT = SCRIPT_PATH.parents[2]
-DEFAULT_TOKEN_PATH = PROJECT_ROOT / ".tmp" / "linkedin-native-token.json"
+DEFAULT_TOKEN_PATH = BLOG_ROOT / ".tmp" / "linkedin-native-token.json"
 DEFAULT_SCOPES = "openid profile w_member_social"
 DEFAULT_API_VERSION = "202506"
 MIN_API_VERSION = "202506"
@@ -71,7 +71,7 @@ def client_secret() -> str:
 
 
 def redirect_uri() -> str:
-    return env("LINKEDIN_REDIRECT_URI", "https://posts.florianrolke.com/linkedin/callback")
+    return env("LINKEDIN_REDIRECT_URI", "https://linkedin-api.example.com/linkedin/callback")
 
 
 def api_version() -> str:
@@ -84,7 +84,7 @@ def api_version() -> str:
 
 
 def native_api_url() -> str:
-    return env("LINKEDIN_NATIVE_API_URL", "https://linkedin-api.florianrolke.com").rstrip("/")
+    return env("LINKEDIN_NATIVE_API_URL", "https://linkedin-api.example.com").rstrip("/")
 
 
 def token_path() -> Path:

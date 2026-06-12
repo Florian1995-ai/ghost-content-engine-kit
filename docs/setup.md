@@ -62,3 +62,11 @@ If this fails, check:
 - The Admin API key came from a custom integration, not a Content API key.
 - The Ghost site is reachable from your machine.
 
+## 6. Optional: Configure LinkedIn Publishing
+
+If you want each approved Ghost post to become a LinkedIn post from the CLI or IDE, configure the native LinkedIn publisher:
+
+- `linkedin-setup/README.md`
+- `linkedin-setup/coolify.md`
+- `linkedin-setup/docker.md`
+- `linkedin-setup/cli-workflow.md`

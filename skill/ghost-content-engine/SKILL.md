@@ -18,6 +18,7 @@ Use this skill when the user wants to create, enrich, publish, or maintain blog 
 5. For internal graph enrichment, use `scripts/neo4j_question_mining.py`.
 6. For combined FAQ enrichment, use `scripts/faq_enrichment_pipeline.py`.
 7. For community wins, case studies, masterclasses, newsletters, or quote banks, use `scripts/community_blog_pipeline.py`.
+8. For LinkedIn repurposing from a Ghost post, use `scripts/ghost_to_linkedin.py` or `scripts/linkedin_post_pipeline.py`.
 
 ## Guardrails
 
@@ -28,6 +29,8 @@ Use this skill when the user wants to create, enrich, publish, or maintain blog 
 - Publish through Ghost HTML cards with `--html-card` so custom classes survive.
 - Keep important content visible in HTML; do not hide essential content behind JavaScript.
 - Use clean evergreen slugs.
+- LinkedIn publishing must use official OAuth/API credentials and must not use cookies or browser automation.
+- Use `--review-only` or `--dry-run` before `--publish-now` unless the user explicitly asked for live posting.
 
 ## Common Commands
 
@@ -37,6 +40,8 @@ python scripts/youtube_blog_pipeline.py from-url --url "https://www.youtube.com/
 python scripts/reddit_question_mining.py research --topic "AI agency first client" --slug ai-agency-first-client --dry-run
 python scripts/neo4j_question_mining.py research --topic "AI agency first client" --slug ai-agency-first-client --max-nodes 500
 python scripts/community_blog_pipeline.py from-file --source-file examples/community-win-source.md --title "How A Simple Website Offer Became A First-Client Win" --slug simple-website-offer-first-client-win --content-type win --redact "Member Name"
+python scripts/ghost_to_linkedin.py --slug ai-agency-first-client --review-only
+python scripts/ghost_to_linkedin.py --slug ai-agency-first-client --publish-now
 ```
 
 ## References
@@ -49,4 +54,5 @@ Read the repo docs only when needed:
 - `docs/neo4j-content-memory.md`
 - `docs/community-content-pipeline.md`
 - `docs/publishing-checklist.md`
-
+- `linkedin-setup/README.md`
+- `linkedin-setup/cli-workflow.md`

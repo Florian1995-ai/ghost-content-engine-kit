@@ -9,6 +9,7 @@ It includes:
 - Reddit exact-question FAQ mining through Apify.
 - Optional Neo4j enrichment from your own meeting/community/content graph.
 - Community win, case-study, masterclass, newsletter, and quote-bank draft workflows.
+- Native LinkedIn repurposing through LinkedIn's official OAuth and Share API.
 - Ghost HTML-card article styling that keeps important content visible in real HTML.
 - A reusable CTA config so calls to action can be changed centrally.
 
@@ -25,7 +26,7 @@ Most creators and operators have better source material than they realize: calls
 ## Quick Start
 
 ```bash
-git clone https://github.com/your-org/ghost-content-engine-kit.git
+git clone https://github.com/Florian1995-ai/ghost-content-engine-kit.git
 cd ghost-content-engine-kit
 python -m venv .venv
 .venv\Scripts\activate
@@ -85,6 +86,16 @@ Create a redacted community-win draft:
 python scripts/community_blog_pipeline.py from-file --source-file examples/community-win-source.md --title "How A Simple Website Offer Became A First-Client Win" --slug simple-website-offer-first-client-win --content-type win --redact "Member Name"
 ```
 
+Repurpose an existing Ghost post to LinkedIn:
+
+```bash
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --review-only
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --dry-run
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --publish-now
+```
+
+The LinkedIn path uses the official LinkedIn API. See `linkedin-setup/README.md` for Coolify and non-Coolify setup.
+
 ## Recommended Article Structure
 
 - One clear Ghost post title/H1.
@@ -108,4 +119,7 @@ The dry-run commands do not spend Apify credits. Live Reddit and YouTube actor r
 - `docs/neo4j-content-memory.md`
 - `docs/community-content-pipeline.md`
 - `docs/publishing-checklist.md`
-
+- `linkedin-setup/README.md`
+- `linkedin-setup/coolify.md`
+- `linkedin-setup/docker.md`
+- `linkedin-setup/cli-workflow.md`

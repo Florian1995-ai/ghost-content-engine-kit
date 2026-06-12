@@ -45,5 +45,22 @@ python scripts/ghost_client.py create "Post Title" content-drafts/post-file.html
 - Confirm the live URL returns `200`.
 - Submit sitemap in Google Search Console and Bing Webmaster Tools.
 - Request indexing manually for important early posts.
-- Add the post to a maintenance ledger with next review date.
+- Create the LinkedIn repurposing draft:
 
+```bash
+python scripts/ghost_to_linkedin.py --slug post-title-keyword-slug --review-only
+```
+
+- Dry-run the LinkedIn payload:
+
+```bash
+python scripts/ghost_to_linkedin.py --slug post-title-keyword-slug --dry-run
+```
+
+- Publish to LinkedIn only after approval:
+
+```bash
+python scripts/ghost_to_linkedin.py --slug post-title-keyword-slug --publish-now
+```
+
+- Add the post to a maintenance ledger with next review date.

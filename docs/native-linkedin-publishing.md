@@ -1,56 +1,29 @@
 # Native LinkedIn Publishing
 
-This service is the direct fallback when Postiz is unavailable. It uses LinkedIn's official OAuth flow and `Share on LinkedIn` API, not browser automation or cookies.
+The native LinkedIn publisher is the official-API path for sending approved Ghost Content Engine drafts to a LinkedIn member profile.
 
-## Coolify App
+For the complete reusable setup, use:
 
-- Repository: `https://github.com/Florian1995-ai/ghost-content-engine-kit`
-- Branch: `main`
-- Dockerfile: `deploy/linkedin-native.Dockerfile`
-- Exposed port: `8080`
-- Domain: `https://linkedin-api.florianrolke.com`
-- Health check path: `/health`
+- `linkedin-setup/README.md`
+- `linkedin-setup/coolify.md`
+- `linkedin-setup/docker.md`
+- `linkedin-setup/cli-workflow.md`
 
-## Required Environment Variables
+The short version:
 
-Copy `deploy/linkedin-native.env.example` into the Coolify application environment.
-
-`LINKEDIN_CLIENT_ID` and `LINKEDIN_CLIENT_SECRET` come from the LinkedIn Developer Portal app.
-
-`LINKEDIN_REDIRECT_URI` must be added in LinkedIn Developer Portal under:
-
-`Auth` -> `OAuth 2.0 settings` -> `Authorized redirect URLs for your app`
-
-Use:
-
-`https://linkedin-api.florianrolke.com/linkedin/callback`
-
-`LINKEDIN_NATIVE_API_KEY` is not from LinkedIn. Generate a long private random value and use the same value locally when publishing through the hosted service.
-
-## Connect LinkedIn
-
-After deployment and DNS are live, open:
-
-`https://linkedin-api.florianrolke.com/auth/start`
-
-Approve the LinkedIn permissions. The callback stores the token in `/data/linkedin-native-token.json`.
-
-## Test
-
-Health:
+1. Create a LinkedIn Developer app.
+2. Add `Share on LinkedIn`.
+3. Add `Sign In with LinkedIn using OpenID Connect`.
+4. Deploy `deploy/linkedin-native.Dockerfile`.
+5. Set the variables from `linkedin-setup/env.example`.
+6. Mount persistent storage at `/data`.
+7. Open `/auth/start` on your deployed service.
+8. Publish from a Ghost slug:
 
 ```bash
-curl https://linkedin-api.florianrolke.com/health
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --review-only
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --dry-run
+python scripts/ghost_to_linkedin.py --slug your-ghost-post-slug --publish-now
 ```
 
-Local dry run through the hosted service:
-
-```bash
-python scripts/linkedin_native_client.py publish-text-remote --text "Test post from the native LinkedIn service." --dry-run --skip-image
-```
-
-Publish a draft through the hosted service:
-
-```bash
-python scripts/linkedin_native_client.py publish-draft-remote path/to/linkedin-draft.json
-```
+This path uses LinkedIn OAuth and LinkedIn's REST post/image endpoints. It does not use browser automation, cookies, or unofficial APIs.
