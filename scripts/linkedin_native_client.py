@@ -18,6 +18,7 @@ import argparse
 import json
 import mimetypes
 import os
+import re
 import secrets
 import sys
 import time
@@ -36,7 +37,8 @@ BLOG_ROOT = SCRIPT_PATH.parents[1]
 PROJECT_ROOT = SCRIPT_PATH.parents[2]
 DEFAULT_TOKEN_PATH = PROJECT_ROOT / ".tmp" / "linkedin-native-token.json"
 DEFAULT_SCOPES = "openid profile w_member_social"
-DEFAULT_API_VERSION = "202401"
+DEFAULT_API_VERSION = "202506"
+MIN_API_VERSION = "202506"
 
 
 @dataclass
@@ -52,8 +54,8 @@ class NativeLinkedInConfig:
 
 
 def load_environment() -> None:
-    load_dotenv(PROJECT_ROOT / ".env")
-    load_dotenv(BLOG_ROOT / ".env")
+    load_dotenv(PROJECT_ROOT / ".env", override=True)
+    load_dotenv(BLOG_ROOT / ".env", override=True)
 
 
 def env(name: str, default: str = "") -> str:
@@ -73,7 +75,12 @@ def redirect_uri() -> str:
 
 
 def api_version() -> str:
-    return env("LINKEDIN_API_VERSION", DEFAULT_API_VERSION)
+    value = env("LINKEDIN_API_VERSION", DEFAULT_API_VERSION)
+    if not re.fullmatch(r"\d{6}", value):
+        return DEFAULT_API_VERSION
+    if value < MIN_API_VERSION:
+        return MIN_API_VERSION
+    return value
 
 
 def native_api_url() -> str:
