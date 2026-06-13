@@ -23,7 +23,7 @@ Replace `linkedin-api.example.com` with your real subdomain.
 In Coolify:
 
 1. Create a new application from your GitHub repo or fork.
-2. Repository: `https://github.com/Florian1995-ai/ghost-content-engine-kit`
+2. Repository: `https://github.com/Florian1995-ai/ghost-blog-linkedin-content-engine-kit`
 3. Branch: `master` unless your fork uses `main`.
 4. Build type: Dockerfile.
 5. Dockerfile path:
@@ -126,4 +126,3 @@ LINKEDIN_NATIVE_API_KEY=the same long random secret from Coolify
 ```
 
 Now the local Ghost pipeline can call the hosted LinkedIn bridge.
-

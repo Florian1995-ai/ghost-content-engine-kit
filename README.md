@@ -26,8 +26,8 @@ Most creators and operators have better source material than they realize: calls
 ## Quick Start
 
 ```bash
-git clone https://github.com/Florian1995-ai/ghost-content-engine-kit.git
-cd ghost-content-engine-kit
+git clone https://github.com/Florian1995-ai/ghost-blog-linkedin-content-engine-kit.git
+cd ghost-blog-linkedin-content-engine-kit
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
